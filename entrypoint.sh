@@ -2,8 +2,12 @@
 
 # First write all the URLs to check to a configfile, one URL per line
 for url in ${URLS} ; do
-  echo "Adding $url to URL List"
-  echo $url >> /urlfile.txt
+  if ! egrep ^${url}$ ./urlfile.txt >/dev/null ; then
+    echo "Adding $url to URL List"
+    echo $url >> /urlfile.txt
+  else
+    echo "$url already in domainlist"
+  fi
 done
 
 while (true) ; do
